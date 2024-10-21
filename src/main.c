@@ -15,6 +15,19 @@ float* gen_amc_dif_coe(float* c, size_t count){
     }
     return c;
 }
+float* gen_amc_sum_coe(float* c, size_t count){
+    if (!count) return NULL;
+    if (!c) c = malloc(sizeof(float)*(count-1));
+    if (!c) return NULL;
+    for (size_t a = 0; a < count; a++){
+        c[a] = 0.0f;
+        for (size_t b = 0; b < a; b++){
+            float v = b == 0 ? 1.0f : c[b];
+            c[a] -= v/(a-b+1);
+        }
+    }
+    return c;
+}
 float* gen_abp_dif_coe(float* y, size_t count, float* c){
     if (!count) return NULL;
     if (!c) c = gen_amc_dif_coe(c, count);
@@ -71,10 +84,16 @@ float* gen_gjp_coe(float* b, size_t count, float* y, float* c){
 }
 
 int main(int argc, char** argv){
-    float* gjp = gen_gjp_coe(NULL, 9, NULL, NULL);
+    float* gjp = gen_amc_sum_coe(NULL, 9);
+    for (size_t a = 0; a < 8; a++){
+        printf("%f\n", gjp[a]);
+    }
+    /*
     for (size_t a = 0; a < 10; a++){
         for (size_t b = 0; b < 10; b++) printf("%f ", gjp[a*9+b]);
         printf("\n");
     }
+    */
+
     return 0;
 }
