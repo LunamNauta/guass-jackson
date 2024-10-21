@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//file:///C:/Users/Ayden/AppData/Local/Temp/BF03546367.pdf
+
 float* gen_amc_dif_coe(float* c, size_t count){
     if (!count) return NULL;
     if (!c) c = malloc(sizeof(float)*count);
